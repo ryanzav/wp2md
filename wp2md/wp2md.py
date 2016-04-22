@@ -599,18 +599,21 @@ class CustomParser:
             self.subj = None
 
     def data(self, data):
+        """This can be called multiple times for one field."""
         if self.subj:
             if self.cur_section() == 'comment':
                 self.cmnt[self.subj] = data
 
             elif self.cur_section() == 'item':
-                self.item[self.subj] = data
+                if self.subj in self.item:
+                    self.item[self.subj] += data
+                else:
+                    self.item[self.subj] = data
 
             elif self.cur_section() == 'channel':
                 self.channel[self.subj] = data
                 if self.subj == 'base_site_url':
                     store_base_url(self.channel)
-            self.subj = None
 
     def start_section(self, what):
         self.section_stack.append(what)
