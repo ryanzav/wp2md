@@ -223,7 +223,7 @@ def parse_args():
         '-ps',
         action='store',
         metavar='PATH',
-        default=os.path.join("posts", "{year}{month}{day}-{name}.md"),
+        default=os.path.join("posts", "{name}.md"),
         help='post files path (see docs for variable names)')
     parser.add_argument(
         '-pg',

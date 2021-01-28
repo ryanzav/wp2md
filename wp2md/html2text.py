@@ -618,7 +618,7 @@ class HTML2Text(HTMLParser.HTMLParser):
             else:
                 self.o("</"+tag+">")
         if tag in ['td','tbody']:
-            self.pbr()
+            # self.pbr()
             if start:
                 self.p()
                 self.o("<"+tag+">")
@@ -733,6 +733,9 @@ class HTML2Text(HTMLParser.HTMLParser):
             if self.abbr_list and force == "end":
                 for abbr, definition in self.abbr_list.items():
                     self.out("  *[" + abbr + "]: " + definition + "\n")
+            while '**' in data:
+                 data = data.replace("**","<b>",1)
+                 data = data.replace("**","</b>",1)
 
             self.p_p = 0
             self.out(data)
